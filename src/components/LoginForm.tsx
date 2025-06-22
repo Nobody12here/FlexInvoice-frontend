@@ -1,14 +1,23 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-
+import api from "../api";
 const LoginForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log({ email, password });
+    const data = { email,password};
+    let response;
+    try {
+      response = await api.post("/user/login/", data);
+      if (response.status === 200) {
+        console.log(response.data);
+      }
+    } catch (error:any) {
+      console.log(error?.response?.data?.error);
+      alert("Error occured!");
+    }
   };
 
   return (
