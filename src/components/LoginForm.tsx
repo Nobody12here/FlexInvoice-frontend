@@ -7,16 +7,24 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const data = { email,password};
+    const data = { email, password };
     let response;
     try {
       response = await api.post("/user/login/", data);
       if (response.status === 200) {
         console.log(response.data);
+        if (window !== undefined) {
+          const {
+            data2: { refresh, access },
+          } = response.data;
+          window.localStorage.setItem("refresh", refresh);
+
+          window.localStorage.setItem("access", access);
+        }
       }
-    } catch (error:any) {
-      console.log(error?.response?.data?.error);
-      alert("Error occured!");
+    } catch (error: any) {
+      console.log(error.response);
+      alert(`Error occured! ${error.toJSON()}`);
     }
   };
 
