@@ -36,7 +36,7 @@ const LoginForm = () => {
           <p className="mt-2 text-sm text-gray-200">
             Don't have an account?{" "}
             <a
-              href="#"
+              href="/register"
               className="font-medium text-blue-300 hover:text-blue-400"
             >
               Sign up
